@@ -2,6 +2,286 @@
 <html>
 <body>
 <h1>SpawnCampGames</h1>
-<p></p>
+
+<code>
+
+using System.Collections.Generic;
+using UnityEngine;
+
+// The base Clicking Behavior
+// Handles of the selections and deselections from clicking 
+
+
+
+public class UnitClick : MonoBehaviour
+{
+    public GameObject groundMarker;
+
+    private Camera myCam;
+    private AudioSource aSrc;
+
+    private LayerMask clickable = 1 << 8;
+    private LayerMask ground = 1 << 7;
+
+    void Start()
+    {
+        myCam = Camera.main;
+        aSrc = GetComponent<AudioSource>();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, clickable))
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    UnitSelection.Instance.ShiftClickSelect(hit.collider.gameObject);
+                }
+                else
+                {
+                    UnitSelection.Instance.ClickSelect(hit.collider.gameObject);
+                }
+            }
+            else
+            {
+                if (!Input.GetKey(KeyCode.LeftShift))
+                {
+                    UnitSelection.Instance.DeselectAll();
+                }
+            }
+            aSrc.Play();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit hit;
+            Ray ray = myCam.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground))
+            {
+                groundMarker.transform.position = hit.point;
+                groundMarker.SetActive(false);
+                groundMarker.SetActive(true);
+            }
+        }
+    }
+}
+
+// The Dragging Mechanic
+// Draws the visual on the screen as well as selecting units to be put on the list.
+
+
+
+public class UnitDrag : MonoBehaviour
+{
+    Camera myCam;
+
+    //Graphical
+    [SerializeField]
+    RectTransform boxVisual;
+
+    //Logicals
+    Rect selectionBox;
+
+    Vector2 startPos;
+    Vector2 endPos;
+
+    void Start()
+    {
+        myCam = Camera.main;
+        startPos = Vector2.zero;
+        endPos = Vector2.zero;
+        DrawVisualBox();
+    }
+
+    void Update()
+    {
+            // when clicked
+            if (Input.GetMouseButtonDown(0))
+            {
+                startPos = Input.mousePosition;
+                selectionBox = new Rect();
+            }
+
+            // while holding click
+            if (Input.GetMouseButton(0))
+            {
+                endPos = Input.mousePosition;
+                DrawVisualBox();
+                DrawSelectionBox();
+            }
+
+            // when release click
+            if (Input.GetMouseButtonUp(0))
+            {
+                SelectUnits();
+                startPos = Vector2.zero;
+                endPos = Vector2.zero;
+                DrawVisualBox();
+            }
+    }
+
+    private void DrawVisualBox()
+    {
+        // draw visuals
+        Vector2 boxStart = startPos;
+        Vector2 boxcenter = (boxStart + endPos) / 2;
+
+        boxVisual.position = boxcenter;
+
+        Vector2 boxSize = new Vector2(
+            Mathf.Abs(boxStart.x - endPos.x),
+            Mathf.Abs(boxStart.y - endPos.y));
+
+        boxVisual.sizeDelta = boxSize;
+    }
+
+    void DrawSelectionBox()
+    {
+        if (Input.mousePosition.x < startPos.x)
+        {
+            // dragging left
+            selectionBox.xMin = Input.mousePosition.x;
+            selectionBox.xMax = startPos.x;
+        }
+        else // dragging right
+        {
+            selectionBox.xMin = startPos.x;
+            selectionBox.xMax = Input.mousePosition.x;
+        }
+
+        if (Input.mousePosition.y < startPos.y)
+        {
+            // dragging down
+            selectionBox.yMin = Input.mousePosition.y;
+            selectionBox.yMax = startPos.y;
+        }
+        else // dragging up
+        {
+            selectionBox.yMin = startPos.y;
+            selectionBox.yMax = Input.mousePosition.y;
+        }
+    }
+
+    void SelectUnits()
+    {
+        // loop thru all my units
+        foreach (var unit in UnitSelection.Instance.unitList)
+        {
+            // if unit is within the bounds of the selection Rect
+            if (selectionBox.Contains(myCam.WorldToScreenPoint(unit.transform.position)))
+            {
+                //add to selection of units
+                UnitSelection.Instance.DragSelect(unit);
+            }
+        }
+    }
+}
+
+
+// Unit Selection
+// Contains the 2 lists and is in charge of keeping them updated
+
+
+
+
+public class UnitSelection : MonoBehaviour
+{
+    public List<GameObject> unitList = new List<GameObject>();
+    public List<GameObject> unitsSelected = new List<GameObject>();
+
+    private static UnitSelection _instance;
+    public static UnitSelection Instance {get { return _instance; }}
+
+    private void Awake()
+    {
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
+    public void ClickSelect(GameObject unitToAdd)
+    {
+        DeselectAll();
+        unitsSelected.Add(unitToAdd);
+        unitToAdd.GetComponent<BasicAI>().enabled = true;
+        unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    public void ShiftClickSelect(GameObject unitToAdd)
+    {
+        if (!unitsSelected.Contains(unitToAdd))
+        {
+            unitsSelected.Add(unitToAdd);
+            unitToAdd.GetComponent<BasicAI>().enabled = true;
+            unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else
+        {
+            unitToAdd.transform.GetChild(0).gameObject.SetActive(false);
+            unitToAdd.GetComponent<BasicAI>().enabled = false;
+            unitsSelected.Remove(unitToAdd);
+        }
+    }
+
+    public void DragSelect(GameObject unitToAdd)
+    {
+        if (!unitsSelected.Contains(unitToAdd))
+        {
+            unitsSelected.Add(unitToAdd);
+            unitToAdd.GetComponent<BasicAI>().enabled = true;
+            unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
+    public void DeselectAll()
+    {
+        foreach (var unit in unitsSelected)
+        {
+            unit.GetComponent<BasicAI>().enabled = false;
+            unit.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        unitsSelected.Clear();
+    }
+
+    public void Deselect(GameObject toDeselect)
+    {
+        unitsSelected.Remove(toDeselect);
+        toDeselect.GetComponent<BasicAI>().enabled = false;
+        toDeselect.transform.GetChild(0).gameObject.SetActive(false);
+    }
+}
+
+
+// The Unit Class
+// Allows units to be destroyed w/o causing missing references/ null errors
+
+
+
+public class Unit : MonoBehaviour
+{
+    void Start()
+    {
+        UnitSelection.Instance.unitList.Add(this.gameObject);
+    }
+
+    void OnDestroy()
+    {
+        UnitSelection.Instance.unitList.Remove(this.gameObject);
+    }
+}
+
+
+</code>
+
+
 </body>
 </html>
