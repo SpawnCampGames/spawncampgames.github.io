@@ -5,11 +5,40 @@
 <title> SpawnCampGames </title>
 
 <style>
+
+.float-container {
+    padding: 20px;
+}
+
+.float-child {
+    float: left;
+    padding: 0px;
+}  
+
 pre code {
-  background-color: #eee;
+  background-color: #1f1f1f;
   border: 1px solid #999;
   display: block;
   padding: 20px;
+  color: #999;
+}
+
+.logo {
+  width: 394px;
+  height: 62px;
+  background-image: url("../../img/scgheader.png");
+  background-color: ##1f1f1f;
+}
+
+.back {
+  width: 394px;
+  height: 62px;
+  background-image: url("../../img/back.png");
+  background-color: ##1f1f1f;
+}
+
+.maindiv {
+margin-top:50px
 }
 
 
@@ -17,8 +46,21 @@ pre code {
 
 <body bgcolor="#444444">
 
+
+<div class="float-container">
+
+  <div class="float-child">
+    <div class=logo></div>
+  </div>
+  
+  <div class="float-child">
+    <a href="../index.html"><div class=back></div></a>
+  </div>
+  
+</div>
+<div class="maindiv">
 <pre>
-  <code>
+<code>
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -108,9 +150,9 @@ public class CarController : MonoBehaviour
         box.MoveRotation(transform.rotation);
     }
 }
-  </code>
+</code>
 </pre>
-
+</div>
 
 </body>
 </html>
