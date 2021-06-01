@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title> SpawnCampGames </title>
+
+<style>
+pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+}
+
+
+</style>
+
+<body bgcolor="#444444">
+
+<pre>
+  <code>
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CarController : MonoBehaviour
+{
+    public TrailRenderer trailL;
+    public TrailRenderer trailR;
+    public Rigidbody sphereRB;
+
+    private float normalDrag;
+    public float modifiedDrag;
+
+    // private float moveInput;
+    private bool isCarGrounded;
+    public float slerpTime;
+
+    public float fwdSpeed;
+    public float revSpeed;
+    public LayerMask groundLayer;
+
+    public float turnInput;
+    public float turnSpeed;
+    public float raycastLength;
+
+    //debugs values
+    public float moveInput;
+    public float newRot;
+
+    public Rigidbody box;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        sphereRB.transform.parent = null;
+        normalDrag = sphereRB.drag;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        moveInput = Input.GetAxisRaw("Vertical");
+        turnInput = Input.GetAxisRaw("Horizontal");
+
+        newRot = turnInput * turnSpeed * Time.deltaTime * moveInput;
+
+        if (isCarGrounded)
+        {
+            transform.Rotate(0, newRot, 0, Space.World);
+        }
+
+        transform.position = sphereRB.transform.position;
+
+        RaycastHit hit;
+        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer);
+
+        Quaternion toRotateTo = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotateTo, slerpTime * Time.deltaTime);
+
+        if (Input.GetAxis("Horizontal") != 0f)
+        {
+            trailL.emitting = true;
+            trailR.emitting = true;
+        }
+        else
+        {
+            trailL.emitting = false;
+            trailR.emitting = false;
+        }
+
+        moveInput *= moveInput > 0 ? fwdSpeed : revSpeed;
+        sphereRB.drag = isCarGrounded ? normalDrag : modifiedDrag;
+    }
+
+    private void FixedUpdate()
+    {
+        if (isCarGrounded)
+        {
+            sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
+        }
+        else
+        {
+            sphereRB.AddForce(transform.up * -40f);
+        }
+
+        box.MoveRotation(transform.rotation);
+    }
+}
+  </code>
+</pre>
+
+
+</body>
+</html>
