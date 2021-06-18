@@ -1,34 +1,48 @@
-<!DOCTYPE html>
 <html>
-
-<head>
 <title> SpawnCampGames </title>
-
 <style>
+html { 
+	background-color: #3b3b3b 
+}
 
+body {
+	overflow: hidden;
+}
+
+body, html, #wrapper { 
+	width: 100%; 
+	height: 100%;
+}
+
+#wrapper { 
+	display: table
+}
+
+#main { 
+	display: table-cell; 
+	vertical-align: middle; 
+	text-align:center 
+}
+
+#horizontal {
+	margin-left: auto;
+    margin-right: auto;
+	margin-top: -50px;
+}
+
+#horizontal * {
+	display: inline-block;
+    width: 92px;
+    height: 100px;
+    margin: 5px;
+}
 
 #spacer {
-   height: 106px;
-   width:10px;
-   float:left;
+	width: 10px;
 }
 
-
-#buttonBar {
-   height: 106px;
-   width:618px;
-   margin-left: auto;
-   margin-right: auto;
-}
-
-
-#mainImage {
-   background-image: url('img/SpawnCampGamesLogo.png');
-   width: 743px;
-   height: 451px;
-   margin-top: 150px;
-   margin-left: auto;
-   margin-right: auto;
+#logo {
+	margin-top: -70px;
 }
 
 #itch {
@@ -105,24 +119,28 @@
 }
 
 
+
+
+
+
+
 </style>
 
+<body>
+<div id="wrapper">
+<div id="main">
+<img src="img/mainColorized.png" id="logo" />
 
-
-<body bgcolor="#5c5c5c">
-<div id="mainImage"></div>
-
-
-<div id="buttonBar">
-
+<div id="horizontal">
 <a href="https://spawncampgames.itch.io/" alt="SpawnCampGames"><div id="itch"></div></a>	<div id="spacer"></div>
 <a href="https://twitter.com/SpawnCampGames_" alt="SpawnCampGames_"><div id="twitter"></div></a>	<div id="spacer"></div>
 <a href="https://www.youtube.com/channel/UCvSTBcCRbDl_g329C1k-K6A" alt="SpawnCampGames"><div id="youtube"></div></a>	<div id="spacer"></div>
 <a href="https://github.com/SpawnCampGames" alt="SpawnCampGames"><div id="gitHub"></div></a>	<div id="spacer"></div>
 <a href="https://gfycat.com/gifs/search/spawncampgames" alt="SpawnCampGames"><div id="gyfcat"></div></a>	<div id="spacer"></div>
 <a href="https://www.reddit.com/user/SpawnCampGames" alt="SpawnCampGames"><div id="reddit"></div></a>
-
 </div>
 
+</div>
+</div>
 </body>
 </html>
