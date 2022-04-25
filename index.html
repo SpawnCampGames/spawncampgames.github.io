@@ -20,10 +20,61 @@ body {
 	overflow: hidden;
 }
 
+p{
+
+font-size: .85em;
+color: #171717;
+font-family: helvetica;
+font-style: bold;
+
+}
+
+a:link {
+  color: white;
+}
+
+/* visited link */
+a:visited {
+  color: white;
+}
+
+/* mouse over link */
+a:hover {
+  color: 171717;
+  text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+  color: white;
+}
 body, html, #wrapper { 
 	width: 100%; 
 	height: 100%;
 }
+
+
+#redirectionText{
+font-size: 1em;
+font-weight: 500
+color: #171717;
+font-family: Andale Mono, monospace;
+}
+
+#orClickHereText{
+font-size: .8em;
+font-weight: 200
+color: #303030;
+font-family: Andale Mono, monospace;
+}
+
+#countdowntext{
+font-size: 1em;
+font-weight: 200
+color: #4a3400;
+font-family: Andale Mono, monospace;
+}
+
 
 #wrapper { 
 	display: table
@@ -54,6 +105,8 @@ body, html, #wrapper {
 
 #logo {
 	margin-top: -70px;
+	width: 468px;
+	height: 272px;
 }
 
 #itch {
@@ -142,14 +195,11 @@ body, html, #wrapper {
 <div id="main">
 <img src="img/maincolorized.png" id="logo" />
 
-<div id="horizontal">
-<a href="https://spawncampgames.itch.io/" alt="SpawnCampGames"><div id="itch"></div></a>	<div id="spacer"></div>
-<a href="https://twitter.com/SpawnCampGames_" alt="SpawnCampGames_"><div id="twitter"></div></a>	<div id="spacer"></div>
-<a href="https://www.youtube.com/channel/UCvSTBcCRbDl_g329C1k-K6A" alt="SpawnCampGames"><div id="youtube"></div></a>	<div id="spacer"></div>
-<a href="https://github.com/SpawnCampGames" alt="SpawnCampGames"><div id="gitHub"></div></a>	<div id="spacer"></div>
-<a href="https://gfycat.com/gifs/search/spawncampgames" alt="SpawnCampGames"><div id="gyfcat"></div></a>	<div id="spacer"></div>
-<a href="https://www.reddit.com/user/SpawnCampGames" alt="SpawnCampGames"><div id="reddit"></div></a>
-</div>
+<script>setTimeout(function(){window.location.href='https://www.spawncampgames.com'},3000);</script>
+
+<p id="redirectionText">Redirecting you to SpawnCampGames.com in</p><p id="countdowntext">3 seconds</p><p id="redirectionText">.</p>
+<br><br>
+<p id="orClickHereText">or click <a href="https://www.spawncampgames.com/">here</a>.</p>
 
 </div>
 </div>
