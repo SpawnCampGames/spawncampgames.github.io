@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title> SpawnCampGames </title>
+
+<style>
+
+.float-container {
+    padding: 20px;
+}
+
+.float-child {
+    float: left;
+    padding: 0px;
+}  
+
+pre code {
+  background-color: #1f1f1f;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  color: #999;
+}
+
+.logo {
+  width: 394px;
+  height: 62px;
+  background-image: url("../../img/scgheader.png");
+  background-color: ##1f1f1f;
+}
+
+.back {
+  width: 394px;
+  height: 62px;
+  background-image: url("../../img/back.png");
+  background-color: ##1f1f1f;
+}
+
+.maindiv {
+margin-top:50px
+}
+
+
+</style>
+
+<body bgcolor="#444444">
+
+
+<div class="float-container">
+
+  <div class="float-child">
+    <div class=logo></div>
+  </div>
+  
+  <div class="float-child">
+    <a href="../index.html"><div class=back></div></a>
+  </div>
+  
+</div>
+<div class="maindiv">
+<pre>
+<code>
+private void Update()
+{
+	//_hasAnimator = TryGetComponent(out _animator);
+	
+	JumpAndGravity();
+	GroundedCheck();
+	Move();
+}
+
+private void LateUpdate()
+{
+	CameraRotation();
+}
+
+private void GroundedCheck()
+{
+	// set sphere position, with offset
+	Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
+	Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+}
+
+private void CameraRotation()
+{
+	if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+	{
+		_cinemachineTargetYaw += _input.look.x * Time.deltaTime;
+		_cinemachineTargetPitch += _input.look.y * Time.deltaTime;
+	}
+
+	// clamp our rotations so our values are limited 360 degrees
+	_cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+	_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+	// Cinemachine will follow this target
+	CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
+}
+
+private void Move()
+{
+	#region GetSpeed
+	
+	float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+	
+	if (_input.move == Vector2.zero)
+		targetSpeed = 0.0f;
+	
+	float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+	float speedOffset = 0.1f;
+	float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+
+	// accelerate or decelerate to target speed
+	if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
+	{
+		// note T in Lerp is clamped, so we don't need to clamp our speed
+		_speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+
+		// round speed to 3 decimal places
+		_speed = Mathf.Round(_speed * 1000f) / 1000f;
+	}
+	else
+	{
+		_speed = targetSpeed;
+	}
+	
+	#endregion
+	
+	Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+
+	if (_input.move != Vector2.zero) // player is movinga
+	{
+		if (_input.look == Vector2.zero) // player not using camera
+		{
+			// _targetRotation
+		}
+		else // player is using camera (function normally)
+		{
+			_targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z)
+				* Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y; // get camera rel rot
+		}
+		
+		float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation,
+			ref _rotationVelocity, RotationSmoothTime); // get new player rot
+		
+		transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f); // set new payer rot
+	}
+	
+	Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+	
+	_controller.Move(targetDirection.normalized * (_speed * Time.deltaTime)
+	                 + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+}
+</code>
+</pre>
+</div>
+</body>
+</html>
