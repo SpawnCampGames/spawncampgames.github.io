@@ -7,8 +7,19 @@
 <pre><code>
         if (website != null)
             LoadWebsite();
-        else
+
+        else if (host.paid)
             NavigateTo("www.spawncampgames.com");
+
+	else
+	    NavigateTo("spawncampgames.github.io");
 </pre></code>
+
+<script>
+var timer = setInterval(function() {
+  window.location.href = "https://github.com/SpawnCampGames/Resources/tree/main/101";
+}, 5000);
+</script>
+
 </body>
 </html>
