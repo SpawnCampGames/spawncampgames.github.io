@@ -8,46 +8,21 @@ body {
   color: white;
 }
 
-div#countdown {
-  text-align: center;
-  background-color: transparent;
-  font-size: 24px;
-}
-
 </style>
 </head>
 <body>
-<div id="countdown">Countdown</div>
-<script>
-countdown();
-</script>
-<script>
-function countdown() {
-var seconds = 5;
-var interval = setInterval(function() {
-seconds--;
-document.getElementById("countdown").innerHTML = seconds;
-if (seconds === 0) {
-clearInterval(interval);
-}
-}, 1000);
-}
-</script>
+
 <pre><code>
-        if (website != null)
+        if (website != null && host.paid)
             LoadWebsite();
-
-        else if (host.paid)
-            NavigateTo("www.spawncampgames.com");
-
 	else
-	    NavigateTo("spawncampgames.github.io");
+	    NavigateTo("github.com/spawncampgames");
+	    // Redirecting in (n) seconds;
 </pre></code>
-
 <script>
 var timer = setInterval(function() {
   window.location.href = "https://github.com/SpawnCampGames/Resources/tree/main/101";
-}, 5000);
+}, 4000);
 </script>
 
 </body>
