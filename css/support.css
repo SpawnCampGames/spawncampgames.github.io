@@ -1,0 +1,70 @@
+/* Support Page Styles */
+#support-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: var(--main-bg-color);
+}
+
+.form-container {
+    background-color: #333;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
+}
+
+h2 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 2em;
+    color: var(--hover-color);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+    color: var(--subtitle-color);
+    margin-bottom: 20px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #444;
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--hover-color);
+    outline: none;
+    background-color: #555;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #d97519;
+    /* Darker orange on hover */
+}

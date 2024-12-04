@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpawnCampGames - Asset Details</title>
+    <title>Spawn Camp Games - Asset Details</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Roboto:wght@400;500&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/content.css">
 </head>
 
@@ -14,27 +15,113 @@
     <header>
         <div class="logo">
             <h1>SpawnCampGames</h1>
-            <h4 class="subtitle">Asset Details</h4>
+            <h4 class="subtitle">3D Artist & Game Engine Hobbyist</h4>
         </div>
         <nav>
             <a href="index.html">Home</a>
-            <a href="assets.html">Assets</a>
-            <a href="resources.html">Resources</a>
+            <a href="asset-list.html">Assets</a>
+            <a href="https://github.com/SpawnCampGames/Resources/blob/main/readme.md">Resources</a>
             <a href="support.html">Support</a>
         </nav>
     </header>
 
-    <main>
-        <div id="asset-details">
-            <!-- Asset details will be dynamically loaded here -->
+<main>
+    <div id="asset-details">
+        <!-- Image Gallery -->
+        <div class="image-gallery" id="image-gallery"></div>
+
+        <!-- Asset Details -->
+        <div class="asset-info">
+            <div class="left-side">
+                <h1 id="asset-title" class="asset-title"></h1>
+                <p id="asset-subtitle" class="subtitle"></p>
+                <p id="asset-description"></p>
+                <p id="asset-size"></p>
+            </div>
+
+            <!-- Price and Download Button on the Right -->
+            <div class="right-side">
+                <h2 id="asset-price" class="price"></h2>
+                <a href="#" id="download-btn" class="download-btn">Download</a>
+            </div>
         </div>
-    </main>
+    </div>
+</main>
 
     <footer>
-        <p>&copy; 2024 SpawnCampGames. All rights reserved.</p>
+        <p class="copyright-txt">&copy; 2024 SpawnCampGames. All rights reserved.</p>
+        <img src="thumbs/SpawnCampLogo.png" alt="Spawn Camp Games Logo" class="footer-logo">
     </footer>
 
-    <script src="data/asset_details.js"></script>
+    <script>
+    const assets = {
+        1: {
+            title: "R/C Car Pack",
+            subtitle: "Complete and fully customizable R/C car models with controllers!",
+            description: "This pack features two detailed vehicle models: a car and a truck. It includes two controller models: a gun-style and a classic gimbal-style controller. Perfect for racing games, simulators, or prop use.",
+            size: "Download Size: 12.5 MB",
+            price: "$15.00",
+            images: [
+                "img/RC_Car/1.png",
+                "img/RC_Car/2.png",
+                "img/RC_Car/3.png"
+            ],
+            downloadLink: "https://assetstore.unity.com/publishers/51164"
+        },
+        2: {
+            title: "Low-Poly Truck Pack",
+            subtitle: "Customizable low-poly truck models.",
+            description: "This pack includes a detailed low-poly truck model. Perfect for mobile games, simulations, or low-poly themed projects.",
+            size: "Download Size: 607.0 KB",
+            price: "Free",
+            images: [
+                "img/LowPolyTruck/1.png",
+                "img/LowPolyTruck/2.png",
+                "img/LowPolyTruck/3.png"
+            ],
+            downloadLink: "https://assetstore.unity.com/packages/3d/vehicles/land/lowpoly-flatbed-truck-213840"
+        },
+        3: {
+            title: "Walkie-Talkie Pack",
+            subtitle: "Customizable walkie-talkie prop.",
+            description: "This pack features a highly customizable walkie-talkie prop, ideal for use in low-poly games and simulations.",
+            size: "Download Size: 5.8 MB",
+            price: "Free",
+            images: [
+                "img/Walkie-Talkies/1.png",
+                "img/Walkie-Talkies/2.png",
+                "img/Walkie-Talkies/3.png"
+            ],
+            downloadLink: "https://assetstore.unity.com/packages/3d/props/electronics/walkie-talkie-radios-245895"
+        }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const assetId = parseInt(urlParams.get("id"));
+
+    const assetDetails = assets[assetId];
+
+    if (!assetDetails) {
+        document.getElementById("asset-details").innerHTML = `<h2>No Asset Detected</h2><hr><p>The asset you're looking for could not be found. Please check the URL or try again later.</p>`;
+    } else {
+        document.getElementById("asset-title").innerText = assetDetails.title;
+        document.getElementById("asset-subtitle").innerText = assetDetails.subtitle;
+        document.getElementById("asset-description").innerText = assetDetails.description;
+        document.getElementById("asset-size").innerText = assetDetails.size;
+        document.getElementById("asset-price").innerText = assetDetails.price;
+
+        const imageGallery = document.getElementById("image-gallery");
+        assetDetails.images.forEach(image => {
+            const imgElement = document.createElement("img");
+            imgElement.src = image;
+            imgElement.alt = assetDetails.title;
+            imgElement.className = "asset-image";
+            imageGallery.appendChild(imgElement);
+        });
+
+        document.getElementById("download-btn").href = assetDetails.downloadLink;
+    }
+    </script>
 </body>
 
 </html>

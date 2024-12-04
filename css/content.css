@@ -1,72 +1,99 @@
-/* Ensure the main content is centered and has a clean layout */
+/* General Layout for Asset Page */
 #asset-details {
-    max-width: 900px;
-    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    margin: 40px auto;
+    max-width: 1000px;
     padding: 20px;
-    background-color: var(--card-bg-color);  /* Use your dark background color for the card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Add a soft shadow for a card-like effect */
+    background-color: var(--card-bg-color);
     border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the title */
-#asset-details h1 {
+/* Image Gallery */
+.image-gallery {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.asset-title {
     font-size: 2.2rem;
-    margin-bottom: 20px;
-    color: var(--text-color);  /* Use your text color */
-    font-weight: 700;  /* Bold for title */
+    font-weight: 700;
+    color: var(--hover-color);
+    margin-bottom: 10px;
 }
 
-/* Style the asset description */
-#asset-details p {
-    font-size: 1.1rem;
-    color: var(--text-color);  /* Consistent text color */
-    line-height: 1.6;  /* Improve readability */
+.asset-image {
+    width: 32%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px #1c1c1c;
+}
+
+.asset-image:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 0px var(--hover-color);
+    transition: all 0.3s ease;
+}
+
+/* Asset Info Section */
+.asset-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.left-side {
+    flex: 1;
+    margin-right: 20px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--subtitle-color);
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Right Side (Price & Download Button) */
+.right-side {
+    width: 250px;
+    text-align: center;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--hover-color);
     margin-bottom: 20px;
 }
 
-/* Style the thumbnail image */
-#asset-details .thumbnail img {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    margin-bottom: 20px;
-    border-radius: 8px;  /* Rounded corners for the image */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Soft shadow for the image */
-}
-
-/* Style the download button */
-#asset-details .download-btn {
+.download-btn {
     display: inline-block;
     padding: 12px 24px;
-    background-color: var(--hover-color);  /* Orange color from your design */
+    background-color: var(--hover-color);
     color: white;
     text-decoration: none;
     border-radius: 4px;
     font-weight: bold;
-    margin-top: 20px;
-    text-align: center;
 }
 
-#asset-details .download-btn:hover {
-    background-color: var(--hover-color-dark);  /* Darker shade for hover effect */
-}
-
-/* Add a subtitle for the description if needed */
-#asset-details .subtitle {
-    font-size: 1.2rem;
-    color: var(--subtitle-color);  /* A color for subtitles */
-    margin-bottom: 20px;
-    font-weight: 500;
-}
-
-/* Optional: Style the page header to match the login page */
-header h1 {
-    font-size: 2rem;
-    color: var(--hover-color);  /* Your primary accent color (orange) */
-}
-
-header h4.subtitle {
-    font-size: 1rem;
-    color: var(--subtitle-color);  /* Use the same color as your subtitle */
-    margin-top: 5px;
+.download-btn:hover {
+    background-color: var(--hover-color-dark);
 }

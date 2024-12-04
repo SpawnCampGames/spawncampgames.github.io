@@ -5,9 +5,17 @@
     --hover-color: #f58426;
     --text-color: #f0f0f0;
     --dark-bg: #1e1e1e;
-	--subtitle-color: #d6d6d6;
+    --subtitle-color: #d6d6d6;
 }
 
+/* Reset margins, padding, and box-sizing globally */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -15,15 +23,32 @@ body {
     color: var(--text-color);
     display: flex;
     flex-direction: column;
-    min-height: 100vh;  /* Ensures body takes up full viewport height */
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
+.image-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* Ensures aspect ratio is maintained */
+}
 /* Header */
 header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 0px 40px;
+    padding: 20px;
     background-color: var(--dark-bg);
     border-bottom: 2px solid #2e2e2e;
 }
@@ -31,40 +56,39 @@ header {
 header .logo {
     display: flex;
     flex-direction: column;
-    align-items: center;  /* Center the title and subtitle horizontally */
+    align-items: center;
 }
 
 header .logo h1 {
-
- font-family: 'Rubik', sans-serif;
-    font-size: 1.75em;
+    font-family: 'Rubik', sans-serif;
+    font-size: 2em;
     font-weight: 600;
     color: var(--hover-color);
-    margin: 0px 0px;
-    padding: 25px 10px;
+    margin: 0;
+    padding: 10px 0;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 header .subtitle {
     font-family: 'Roboto', sans-serif;
-    font-size: .75em;
-    font-weight: 500;
+    font-size: 1em;
+    font-weight: 400;
     color: var(--subtitle-color);
-    margin-top: -20px;
-    text-align: center;  /* Center the subtitle text */
+    text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
-	padding: 5px;
+    padding: 5px;
+    margin-top: -10px;
 }
 
-
+/* Navbar */
 header nav a {
-    margin-left: 15px;
-    padding: 20px 10px;
+    margin-left: 25px;
+    padding: 10px 20px;
     text-decoration: none;
     color: var(--text-color);
-    font-size: 0.8em;
+    font-size: 1em;
     font-weight: 500;
     text-transform: uppercase;
     transition: background-color 0.2s ease;
@@ -76,10 +100,17 @@ header nav a:hover {
 
 /* Main Section */
 main {
+    flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;  /* Makes the main section grow to fill the available space */
-    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color);
+}
+
+.copyright-txt {
+    font-size: 1em;
+    text-align: center;
+    color:#d97519;
 }
 
 /* Card Grid */
@@ -87,86 +118,105 @@ main {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 20px;
     justify-items: center;
     width: 100%;
-    max-width: 950px;
+    max-width: 1100px;
 }
-
-/* Card */
+/* Card (Default) */
 .card {
     background-color: var(--card-bg-color);
     border: 1px solid var(--hover-color);
     padding: 0;
     text-align: left;
-    position: relative;  /* This is necessary for absolute positioning of the logo */
+    position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 10px 10px 0px #1c1c1c;
-    min-height: 350px;
-    width: 100%;
+    box-shadow: 7px 7px 0px rgba(36, 36, 36, 0.9);
+    /* Shadow pushed to the bottom-right */
+    min-height: 380px;
     cursor: pointer;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-/* Card Logo (hidden by default) */
-.card-logo {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;   /* Size of the logo */
-    height: 32px;
-    opacity: 0;    /* Initially hidden */
-    transition: opacity .55s ease;  /* Smooth transition for visibility */
-}
-
-/* Show the logo on hover */
-.card:hover .card-logo {
-    opacity: 1;   /* Make logo visible on hover */
-}
-
-/* Hover effect on the card */
+/* Hover effect with a solid orange shadow */
 .card:hover {
     transform: scale(1.05);
-    box-shadow: 5px 5px 0px var(--hover-color);
+    box-shadow: 5px 5px 0px rgba(245, 132, 38, 1);
+    /* Orange shadow bottom-right */
+}
+/* Card Title */
+.card h2 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0px;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: var(--hover-color);
+
 }
 
-
-/* Thumbnail Styles */
 .thumbnail {
-    width: 100%;
-    height: 150px;
+    position: relative;
+    /* Make this container the reference point for absolute positioning */
+    width: calc(100% - 10px);
+    /* To compensate for the 10px margin on both sides */
+    height: 180px;
     background-color: #3d424a;
-    transition: transform 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 5px;
+    padding: 0 0px;
 }
-
-.thumbnail:hover {
-    transform: scale(1.125);
-}
-
 .thumbnail img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Description */
+/* Card Description */
 .card p {
     font-size: 1em;
-    font-weight: 450;
+    font-weight: 400;
     color: var(--hover-color);
-    margin: 7px;
+    margin: 4px;
     padding: 10px;
     background-color: #2e2e2e;
-    border-radius: 0px;
+    border-radius: 15px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+}
+
+/* Orange Button */
+.card .button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.card .button:hover {
+    background-color: #d97519;
+    /* Darker orange on hover */
 }
 
 /* Footer */
@@ -179,29 +229,42 @@ footer {
     flex-wrap: wrap;
     padding: 20px;
     min-height: 100px;
-    margin-top: auto;  /* Pushes footer to the bottom */
-    position: relative;  /* Makes sure the logo can be positioned absolutely */
+    position: relative;
+    width: 100%;
 }
 
-/* Footer logo */
+/* Footer Logo */
 footer .footer-logo {
     width: 100px;
     height: 100px;
-    background-color: #d6d6d6;  /* Placeholder color */
     position: absolute;
-    bottom: 20px;  /* Positions it at the bottom */
-    right: 20px;  /* Positions it to the right */
+    bottom: 0px;
+    right: 0px;
+    background-color: transparent;
+    border: none;
+}
+.paid-logo {
+    display: none;
+    /* Initially hidden */
+    position: absolute;
+    /* Position relative to the .thumbnail */
+    top: 10px;
+    /* Adjust this to position it where you want within the image */
+    right: 10px;
+    /* Adjust this to position it where you want within the image */
+    max-width: 40px;
+    /* Force the width to be no larger than 40px */
+    max-height: 40px;
+    /* Force the height to be no larger than 40px */
+    opacity: 0.7;
+    /* Slight transparency */
+    transition: opacity 0.3s ease;
+    /* Smooth fade-in effect */
 }
 
-/* Card Heading */
-.card h2 {
-    background-color: var(--dark-bg);
-    font-family: 'Rubik', sans-serif;
-    font-size: 1em;
-    font-weight: 600;
-    color: var(--text-color);
-    margin: 9px 0;
-    padding: 0 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.card:hover .paid-logo {
+    display: block;
+    /* Make the logo visible when hovering over the card */
+    opacity: 1;
+    /* Full visibility */
 }

@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spawn Camp Games</title>
+    <title>Support - SpawnCamp Games</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Roboto:wght@400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/support.css"> <!-- New CSS file for styling the support form -->
 </head>
 
 <body>
@@ -24,10 +25,20 @@
         </nav>
     </header>
 
-    <main>
-        <section class="image-section">
-            <img src="img/feature.png" alt="Featured Image" class="centered-image">
-        </section>
+    <main id="support-page">
+        <div class="form-container">
+            <h2>Contact Support</h2>
+            <p class="subtitle">We are here to help. Please provide your details below:</p>
+
+            <!-- Form with Formspree Integration -->
+            <form action="https://formspree.io/f/xyzylwqg" method="POST">
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+                <textarea id="comment" name="comment" placeholder="Your Comment" rows="5" required></textarea>
+
+                <button type="submit">Send</button>
+            </form>
+        </div>
     </main>
 
     <footer>
