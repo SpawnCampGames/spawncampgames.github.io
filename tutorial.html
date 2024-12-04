@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Details - SpawnCamp Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>SpawnCampGames</h1>
+            <h4 class="subtitle">Tutorials</h4>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="assets.html">Assets</a>
+            <a href="resources.html">Resources</a>
+            <a href="support.html">Support</a>
+        </nav>
+    </header>
+
+    <main id="tutorial-details">
+        <!-- Tutorial details will be dynamically populated here -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SpawnCampGames. All rights reserved.</p>
+    </footer>
+
+    <script src="data/spawndata_reader.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tutorialId = urlParams.get("id");
+
+            if (tutorialId) {
+                fetch("data/tutorials.spawndata")
+                    .then(response => response.text())
+                    .then(data => {
+                        const tutorials = parseTutorialData(data);
+                        const tutorial = tutorials.find(item => item.id === tutorialId);
+
+                        if (tutorial) {
+                            displayTutorialDetails(tutorial);
+                        } else {
+                            document.getElementById("tutorial-details").innerHTML = "<p>Tutorial not found.</p>";
+                        }
+                    })
+                    .catch(error => console.error("Error loading spawndata:", error));
+            }
+
+            function parseTutorialData(data) {
+                return data.split('\n\n').map(item => {
+                    const tutorial = {};
+                    item.split('\n').forEach(line => {
+                        const [key, value] = line.split(': ');
+                        tutorial[key.trim()] = value.trim();
+                    });
+                    return tutorial;
+                });
+            }
+
+            function displayTutorialDetails(tutorial) {
+                const container = document.getElementById("tutorial-details");
+
+                container.innerHTML = `
+                    <h1>${tutorial.title}</h1>
+                    <div class="thumbnail">
+                        <img src="${tutorial.image}" alt="${tutorial.title} Thumbnail">
+                    </div>
+                    <p>${tutorial.description}</p>
+                    <div class="content">
+                        ${tutorial.content}
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

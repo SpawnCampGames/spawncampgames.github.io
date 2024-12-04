@@ -1,0 +1,207 @@
+/* Global Styles */
+:root {
+    --main-bg-color: #2c2c2c;
+    --card-bg-color: #3b3b3b;
+    --hover-color: #f58426;
+    --text-color: #f0f0f0;
+    --dark-bg: #1e1e1e;
+	--subtitle-color: #d6d6d6;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  /* Ensures body takes up full viewport height */
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 40px;
+    background-color: var(--dark-bg);
+    border-bottom: 2px solid #2e2e2e;
+}
+
+header .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Center the title and subtitle horizontally */
+}
+
+header .logo h1 {
+
+ font-family: 'Rubik', sans-serif;
+    font-size: 1.75em;
+    font-weight: 600;
+    color: var(--hover-color);
+    margin: 0px 0px;
+    padding: 25px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+header .subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: .75em;
+    font-weight: 500;
+    color: var(--subtitle-color);
+    margin-top: -20px;
+    text-align: center;  /* Center the subtitle text */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+	padding: 5px;
+}
+
+
+header nav a {
+    margin-left: 15px;
+    padding: 20px 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.8em;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+}
+
+header nav a:hover {
+    background-color: #444;
+}
+
+/* Main Section */
+main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;  /* Makes the main section grow to fill the available space */
+    padding: 20px;
+}
+
+/* Card Grid */
+.card-grid-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    width: 100%;
+    max-width: 950px;
+}
+
+/* Card */
+.card {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--hover-color);
+    padding: 0;
+    text-align: left;
+    position: relative;  /* This is necessary for absolute positioning of the logo */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 10px 10px 0px #1c1c1c;
+    min-height: 350px;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Card Logo (hidden by default) */
+.card-logo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;   /* Size of the logo */
+    height: 32px;
+    opacity: 0;    /* Initially hidden */
+    transition: opacity .55s ease;  /* Smooth transition for visibility */
+}
+
+/* Show the logo on hover */
+.card:hover .card-logo {
+    opacity: 1;   /* Make logo visible on hover */
+}
+
+/* Hover effect on the card */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 0px var(--hover-color);
+}
+
+
+/* Thumbnail Styles */
+.thumbnail {
+    width: 100%;
+    height: 150px;
+    background-color: #3d424a;
+    transition: transform 0.3s ease;
+}
+
+.thumbnail:hover {
+    transform: scale(1.125);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Description */
+.card p {
+    font-size: 1em;
+    font-weight: 450;
+    color: var(--hover-color);
+    margin: 7px;
+    padding: 10px;
+    background-color: #2e2e2e;
+    border-radius: 0px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-bg);
+    color: #d19d4f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    min-height: 100px;
+    margin-top: auto;  /* Pushes footer to the bottom */
+    position: relative;  /* Makes sure the logo can be positioned absolutely */
+}
+
+/* Footer logo */
+footer .footer-logo {
+    width: 100px;
+    height: 100px;
+    background-color: #d6d6d6;  /* Placeholder color */
+    position: absolute;
+    bottom: 20px;  /* Positions it at the bottom */
+    right: 20px;  /* Positions it to the right */
+}
+
+/* Card Heading */
+.card h2 {
+    background-color: var(--dark-bg);
+    font-family: 'Rubik', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 9px 0;
+    padding: 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

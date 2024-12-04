@@ -1,0 +1,84 @@
+body {
+    background-color: var(--main-bg-color);  /* Use your dark background color */
+    margin: 0;  /* Remove default margin */
+    padding: 0;  /* Remove default padding */
+    font-family: 'Roboto', sans-serif;
+}
+
+#developer-access {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Take full viewport height */
+    padding: 0 20px;  /* Add some padding for responsiveness */
+    background-color: var(--main-bg-color);  /* Use dark background */
+}
+
+.login-container {
+    background-color: var(--card-bg-color);  /* Dark card background */
+    padding: 20px;
+    border-radius: 0px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;  /* Limit the width of the login form */
+    text-align: center;
+    border: 2px solid #ff6f00;  /* Orange border for accent */
+}
+
+.login-container h2 {
+    margin-bottom: -15px;
+    color: var(--hover-color);  /* Use the hover color as the header color */
+}
+
+.login-container .subtitle {
+    font-size: 1rem;
+    color: var(--subtitle-color);  /* Use subtitle color from global theme */
+    margin-bottom: 20px;
+}
+
+/* Style the login form elements */
+#login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style the password input field */
+#login-form input[type="password"] {
+    padding: 10px;
+    margin: 10px 0;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid var(--hover-color);
+    width: 100%;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    letter-spacing: 10px;  /* Space out the dots */
+    box-sizing: border-box;
+}
+
+/* Style the placeholder text */
+#login-form input::placeholder {
+    color: var(--hover-color);  /* Make the placeholder orange */
+    font-weight: bold;  /* Make the placeholder text bold */
+    font-family: 'Roboto', sans-serif;  /* Match website font */
+    letter-spacing: 4px;
+}
+
+#login-form button {
+    padding: 10px;
+	color:var(--hover-color); 
+    background-color: #333333;
+   border: 2px solid var(--dark-bg);
+    border-radius: 4px;
+    cursor: pointer;
+  font-weight: bold;  /* Make the placeholder text bold */
+    font-family: 'Roboto', sans-serif;  /* Match website font */
+}
+
+#login-form button:hover {
+    color:var(--dark-bg);
+    background-color: #ff7a29;
+    border: 2px solid #ff6f00;
+}

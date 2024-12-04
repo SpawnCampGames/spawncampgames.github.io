@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpawnCampGames - Asset Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>SpawnCampGames</h1>
+            <h4 class="subtitle">Assets</h4>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="assets.html">Assets</a>
+            <a href="resources.html">Resources</a>
+            <a href="support.html">Support</a>
+        </nav>
+    </header>
+
+    <main id="asset-details">
+        <!-- Asset details will be dynamically populated here -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SpawnCampGames. All rights reserved.</p>
+    </footer>
+
+    <script src="data/spawndata_reader.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const assetId = urlParams.get("id");
+
+            if (assetId) {
+                fetch("data/assets.spawndata")
+                    .then(response => response.text())
+                    .then(data => {
+                        const assets = parseAssetData(data);
+                        const asset = assets.find(item => item.id === assetId);
+
+                        if (asset) {
+                            displayAssetDetails(asset);
+                        } else {
+                            document.getElementById("asset-details").innerHTML = "<p>Asset not found.</p>";
+                        }
+                    })
+                    .catch(error => console.error("Error loading spawndata:", error));
+            }
+
+            function parseAssetData(data) {
+                return data.split('\n\n').map(item => {
+                    const asset = {};
+                    item.split('\n').forEach(line => {
+                        const [key, value] = line.split(': ');
+                        asset[key.trim()] = value.trim();
+                    });
+                    return asset;
+                });
+            }
+
+            function displayAssetDetails(asset) {
+                const container = document.getElementById("asset-details");
+
+                container.innerHTML = `
+                    <h1>${asset.title}</h1>
+                    <div class="thumbnail">
+                        <img src="${asset.image}" alt="${asset.title} Thumbnail">
+                    </div>
+                    <p>${asset.description}</p>
+                    <div class="downloads">
+                        <a href="${asset.article_url}" class="download-btn">Download</a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

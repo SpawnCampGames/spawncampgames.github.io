@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Login - SpawnCamp Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/login.css"> <!-- New CSS file for login form styling -->
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>SpawnCampGames</h1>
+            <h4 class="subtitle">3D Artist & Game Engine Hobbyist</h4>
+        </div>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../assets.html">Assets</a>
+            <a href="../resources.html">Resources</a>
+            <a href="../support.html">Support</a>
+        </nav>
+    </header>
+
+    <main id="developer-access">
+        <div class="login-container">
+            <h2>Developer Access</h2>
+            <p class="subtitle">Private Use Only</p>
+
+            <form id="login-form">
+			  <input type="password" id="developer-key" name="developer-key" placeholder="Enter key here..." required>
+                <button type="submit">SKIT IT</button>
+            </form>
+        </div>
+    </main>
+
+<footer>
+    <div class="footer-logo"></div> <!-- Footer Logo -->
+    <p>&copy; 2024 SpawnCampGames. All rights reserved.</p>
+</footer>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const developerKey = document.getElementById("developer-key").value;
+            if (developerKey === "your-developer-key") {
+                alert("Access Granted!");
+                window.location.href = "../dev/dashboard.html";  // Redirect to a different page or dashboard after successful login
+            } else {
+                alert("Invalid Developer Key. Access Denied.");
+            }
+        });
+    </script>
+</body>
+</html>
