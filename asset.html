@@ -20,7 +20,7 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="asset-list.html">Assets</a>
-            <a href="https://github.com/SpawnCampGames/Resources/blob/main/readme.md">Resources</a>
+            <a href="https://github.com/SpawnCampGames/Resources/blob/main/readme.md" target="_blank">Resources</a>
             <a href="support.html">Support</a>
         </nav>
     </header>
@@ -53,7 +53,7 @@
         <img src="thumbs/SpawnCampLogo.png" alt="Spawn Camp Games Logo" class="footer-logo">
     </footer>
 
-    <script>
+<script>
     const assets = {
         1: {
             title: "R/C Car Pack",
@@ -96,32 +96,39 @@
         }
     };
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const assetId = parseInt(urlParams.get("id"));
+    document.addEventListener("DOMContentLoaded", () => {
+        const grid = document.querySelector(".card-grid");
 
-    const assetDetails = assets[assetId];
+        for (const id in assets) {
+            const asset = assets[id];
 
-    if (!assetDetails) {
-        document.getElementById("asset-details").innerHTML = `<h2>No Asset Detected</h2><hr><p>The asset you're looking for could not be found. Please check the URL or try again later.</p>`;
-    } else {
-        document.getElementById("asset-title").innerText = assetDetails.title;
-        document.getElementById("asset-subtitle").innerText = assetDetails.subtitle;
-        document.getElementById("asset-description").innerText = assetDetails.description;
-        document.getElementById("asset-size").innerText = assetDetails.size;
-        document.getElementById("asset-price").innerText = assetDetails.price;
+            const card = document.createElement("div");
+            card.className = "card";
 
-        const imageGallery = document.getElementById("image-gallery");
-        assetDetails.images.forEach(image => {
-            const imgElement = document.createElement("img");
-            imgElement.src = image;
-            imgElement.alt = assetDetails.title;
-            imgElement.className = "asset-image";
-            imageGallery.appendChild(imgElement);
+            card.innerHTML = `
+                <a href="asset.html?id=${id}">
+                    <div class="thumbnail">
+                        <img src="${asset.images[0]}" alt="${asset.title} Thumbnail">
+                    </div>
+                    <h2>${asset.title}</h2>
+                    <p>${asset.subtitle}</p>
+                </a>
+                <a href="${asset.downloadLink}">Download</a>
+            `;
+
+            grid.appendChild(card);
+        }
+
+        // Add target="_blank" to external links dynamically
+        document.querySelectorAll(".card a").forEach(link => {
+            if (link.href.startsWith("http")) {
+                link.setAttribute("target", "_blank");
+                link.setAttribute("rel", "noopener noreferrer");
+            }
         });
+    });
+</script>
 
-        document.getElementById("download-btn").href = assetDetails.downloadLink;
-    }
-    </script>
 </body>
 
 </html>
