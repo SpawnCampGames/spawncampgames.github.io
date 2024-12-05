@@ -100,9 +100,11 @@
     const assetId = parseInt(urlParams.get("id"));
 
     const assetDetails = assets[assetId];
-
     if (!assetDetails) {
-        document.getElementById("asset-details").innerHTML = `<h2>No Asset Detected</h2><hr><p>The asset you're looking for could not be found. Please check the URL or try again later.</p>`;
+        document.getElementById("asset-details").innerHTML = `
+        <h2>No Asset Detected</h2>
+        <hr>
+        <p>The asset you're looking for could not be found. Please check the URL or try again later.</p>`;
     } else {
         document.getElementById("asset-title").innerText = assetDetails.title;
         document.getElementById("asset-subtitle").innerText = assetDetails.subtitle;
@@ -119,8 +121,21 @@
             imageGallery.appendChild(imgElement);
         });
 
-        document.getElementById("download-btn").href = assetDetails.downloadLink;
+        // Set the download link dynamically
+        const downloadBtn = document.getElementById("download-btn");
+        downloadBtn.href = assetDetails.downloadLink; // Set the download link URL
+
+        // Check if the link is external (starts with 'http') and set attributes accordingly
+        if (assetDetails.downloadLink.startsWith('http')) {
+            downloadBtn.setAttribute("target", "_blank"); // Open in new tab for external links
+            downloadBtn.setAttribute("rel", "noopener noreferrer"); // Security improvement
+        } else {
+            // For internal links, you can keep it as is (no need for target="_blank")
+            downloadBtn.removeAttribute("target");
+            downloadBtn.removeAttribute("rel");
+        }
     }
+
     </script>
 </body>
 
