@@ -40,7 +40,6 @@ body {
     object-fit: contain;
     /* Ensures aspect ratio is maintained */
 }
-/* Header */
 header {
     position: sticky;
     top: 0;
@@ -51,6 +50,7 @@ header {
     padding: 20px;
     background-color: var(--dark-bg);
     border-bottom: 2px solid #2e2e2e;
+    height: 120px; /* Fixed height */
 }
 
 header .logo {
@@ -104,14 +104,15 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--main-bg-color);
+    background: url('../img/Feature.png')center calc(50% - 120px) no-repeat;
+    /* Set background image */
+    background-attachment: fixed;
+    /* Make background scroll with the page */
+    background-size: cover;
+    /* Ensure the image covers the entire area */
 }
 
-.copyright-txt {
-    font-size: 1em;
-    text-align: center;
-    color:#d97519;
-}
+
 
 /* Card Grid */
 .card-grid-container {
@@ -168,6 +169,17 @@ main {
 
 }
 
+h2 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--hover-color);
+    margin: 0px;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 .thumbnail {
     position: relative;
     /* Make this container the reference point for absolute positioning */
@@ -219,27 +231,120 @@ main {
     /* Darker orange on hover */
 }
 
-/* Footer */
 footer {
     background-color: var(--dark-bg);
-    color: #d19d4f;
     display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     padding: 20px;
     min-height: 100px;
-    position: relative;
     width: 100%;
+border-top: 1px solid #ffab67
 }
 
-/* Footer Logo */
-footer .footer-logo {
+/* Social Panel */
+.social-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+    background-color: rgba(26, 26, 26, 1);
+
+        /* Transparent background */
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+    /* Space from the top of the page */
+    max-width: 600px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    font-size: 50px;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: var(--hover-color);
+}
+
+
+
+
+
+/* Social Panel */
+.content-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+    background-color: rgba(26, 26, 26, 1);
+
+    /* Transparent background */
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+    /* Space from the top of the page */
+    max-width: 600px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Social Icons */
+.content-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.content-icon {
+    font-size: 50px;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.content-icon:hover {
+    color: var(--hover-color);
+}
+
+
+
+
+
+
+
+.copyright-txt {
+    font-size: 1em;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-align: center;
+color: #ffab67;
+}
+
+.footer-logo {
     width: 100px;
     height: 100px;
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
+    /* Adds space below the copyright text */
     background-color: transparent;
     border: none;
 }
@@ -267,4 +372,70 @@ footer .footer-logo {
     /* Make the logo visible when hovering over the card */
     opacity: 1;
     /* Full visibility */
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+nav a i {
+    margin-right: 8px;
+}
+
+nav a span {
+    display: inline;
+}
+/* On small screens, hide the text */
+@media (max-width: 768px) {
+    nav a span {
+        display: none;
+    }
+
+    nav a i {
+        font-size: 24px;
+        /* Slightly larger icons */
+    }
+
+    #mouse-coordinates {
+        display: none;
+        /* Hide mouse coordinates on mobile */
+    }
+
+    
+}
+
+/* On larger screens, show mouse coordinates tab */
+@media (min-width: 769px) {
+    #mouse-coordinates {
+        position: absolute;
+        top: 120px;
+        left: 100px;
+        width: 250px;
+        /* Fixed width */
+        background-color: #2e2e2e;
+        margin-right: 10px;
+        color: #ec7700;
+        /* Match your text color */
+        padding: 5px 10px;
+        border-radius: 0 0 10px 10px;
+        text-align: center;
+        transition: all 0.2s ease-in-out;
+#mouse-coordinates.growing {
+    transform: scale(1.5);
+    }
+
+}
+
 }
